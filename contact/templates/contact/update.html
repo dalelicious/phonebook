@@ -1,0 +1,20 @@
+<head>
+	<title>Update Contact</title>
+</head>
+
+<body>
+	<center>
+
+		<fieldset style="background-color:233d44">
+			<h1 style="color:white" style="font-family:dejavu serif" ><center><b>Update Contact</b></center></h1>
+		</fieldset>
+
+		<form method="POST" action="{%url 'contact:update' contact.id %}">
+	    	{% csrf_token %}
+	 		<br><br>
+	 		Name: <input type="text" value="{{contact.name}}" name="name"><br><br>
+	  	Phone: <input type="text" value="{{contact.phone}}" name="phone"><br><br>
+	  	<input type="submit" value="Update" name="update">
+		</form>
+	</center>
+</body>
