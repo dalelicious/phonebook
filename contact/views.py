@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from .viewmodels import ContactViewModel
+from .forms import ContactForm
 
 Contact = ContactViewModel()
 
@@ -15,22 +16,27 @@ def view(request):
 
 def create(request):
     if request.method == "GET":
-
         return render(request, 'contact/create.html')
     else:
-        Contact.create_contact(request)
-
-        return redirect('/contact')
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            Contact.create_contact(request)
+            return redirect('/contact?message=success form')
+        else:
+            return redirect('/contact?message=invalid form')
 
 def update(request, contactId):
     if request.method == "GET":
         contact = Contact.get_id(contactId)
-
-        return render(request, 'contact/update.html', {'contact':contact})
+        form = ContactForm(contact.__dict__)
+        return render(request, 'contact/update.html', {'form':form, 'contactId':contact.id})
     else:
-        Contact.update_contact(request, contactId)
-
-        return redirect('/contact')
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            Contact.update_contact(request, contactId)
+            return redirect('/contact?message=success form')
+        else:
+            return redirect('/contact?message=invalid form')
 
 
 def delete(request, contactId):

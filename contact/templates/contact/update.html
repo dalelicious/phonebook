@@ -8,12 +8,11 @@
 		<fieldset style="background-color:233d44">
 			<h1 style="color:white" style="font-family:dejavu serif" ><center><b>Update Contact</b></center></h1>
 		</fieldset>
-
-		<form method="POST" action="{%url 'contact:update' contact.id %}">
+		<form method="POST" action="{%url 'contact:update' contactId %}">
 	    	{% csrf_token %}
 	 		<br><br>
-	 		Name: <input type="text" value="{{contact.name}}" name="name"><br><br>
-	  	Phone: <input type="text" value="{{contact.phone}}" name="phone"><br><br>
+	 		{{form.name.label}}:{{form.name}}<br><br>
+	  	{{form.phone.label}}:{{form.phone}}<br><br>
 	  	<input type="submit" value="Update" name="update">
 		</form>
 	</center>
